@@ -43,9 +43,6 @@ package seisaku.lib.display.text
 	 * 
 	 * <p>You can listen for changes to the text content or style of the instance via the
 	 * DynamicTextEvent.TEXT_CHANGE event.</p>
-	 * 
-	 * @see seisaku.lib.display.DynamicTextStyle
-	 * @see seisaku.lib.events.DynamicTextEvent
 	 */
 	public class Text extends HideableSprite
 	{
