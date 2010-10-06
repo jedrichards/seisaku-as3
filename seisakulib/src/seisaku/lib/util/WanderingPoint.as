@@ -32,9 +32,9 @@ package seisaku.lib.util
 	
 	public class WanderingPoint
 	{
-		private var _speed:Number;
-		private var _origin:Point;
-		private var _maxXRad:Number;
+		//private var _speed:Number;
+		//private var _origin:Point;
+		/*private var _maxXRad:Number;
 		private var _maxYRad:Number;
 		private var _xRadiusMod:Number;
 		private var _yRadiusMod:Number;
@@ -44,15 +44,29 @@ package seisaku.lib.util
 		private var _yMod:Number;
 		private var _xModRate:Number;
 		private var _yModRate:Number;
-		private var _randomness:Number;
+		private var _randomness:Number;*/
 		private var _point:Point;
+		private var _width:Number;
+		//private var _height:Number;
+		private var _origin:Point;
+		private var _radius:Number;
+		private var _drivers:Array;
 		
 		/**
 		 * Wandering point. Needs work ... perhaps add more sin/cos drivers?
 		 */
-		public function WanderingPoint(p_speed:Number,p_origin:Point)
+		public function WanderingPoint(p_width:Number)
 		{
-			_speed = p_speed;
+			_drivers = new Array();
+			
+			_width = p_width;
+			//_height = p_height;
+			
+			_point = new Point();
+			_origin = new Point(p_width/2,p_width/2);
+			_radius = p_width/2;
+			
+			/*_speed = p_speed;
 			_origin = p_origin;
 
 			_maxXRad = _origin.x;
@@ -66,14 +80,32 @@ package seisaku.lib.util
 			_xRadiusMod = _yRadiusMod = Math.PI;
 			
 			_xRadiusModRate = _speed*MathUtils.random(0.75,1.5);
-			_yRadiusModRate = _speed*MathUtils.random(0.75,1.5);
+			_yRadiusModRate = _speed*MathUtils.random(0.75,1.5);*/
 			
-			_point = new Point();
+			var driver:WanderingPointDriver = new WanderingPointDriver();
+			driver.speedDegrees = 5;
+			driver.currDegrees = 0;
+			
+			_drivers.push(driver);
 		}
 
 		public function advance():void
 		{
-			_xRadiusMod += _xRadiusModRate;
+			for ( var i:Number=0; i<_drivers.length; i++ )
+			{
+				var driver:WanderingPointDriver = _drivers[i] as WanderingPointDriver;
+				
+				driver.currDegrees += driver.speedDegrees;
+				
+				var rads:Number = MathUtils.degToRad(driver.currDegrees);
+				
+				var newX:Number = Math.cos(rads) * _radius;
+				var newY:Number = Math.sin(rads) * _radius;
+				
+				_point.x += newX;
+				_point.y += newY;
+			}
+			/*_xRadiusMod += _xRadiusModRate;
 			_yRadiusMod += _yRadiusModRate;
 			
 			var radX:Number = Math.cos(_xRadiusMod)*_maxXRad;
@@ -83,7 +115,7 @@ package seisaku.lib.util
 			_yMod += _yModRate;
 			
 			_point.x = _origin.x + Math.cos(_xMod)*radX;
-			_point.y = _origin.y + Math.sin(_yMod)*radY;
+			_point.y = _origin.y + Math.sin(_yMod)*radY;*/
 			
 			//_point.x = _origin.x+Math.cos(_xMod=_xMod+_xModRate)*(_maxXRad/2+Math.cos(_xRadiusMod=_xRadiusMod+_xRadiusModRate)*_maxXRad/2);
     		//_point.y = _origin.y+Math.sin(_yMod=_yMod+_yModRate)*(_maxYRad/2+Math.cos(_yRadiusMod=_yRadiusMod+_yRadiusModRate)*_maxYRad/2);
@@ -100,9 +132,15 @@ package seisaku.lib.util
 			return _point.y;
 		}
 		
-		public function getPoint():Point
+		/*public function getPoint():Point
 		{
 			return _point;
-		}
+		}*/
 	}
+}
+
+class WanderingPointDriver
+{
+	public var speedDegrees:Number;
+	public var currDegrees:Number;
 }
