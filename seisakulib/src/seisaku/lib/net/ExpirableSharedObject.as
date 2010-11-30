@@ -107,6 +107,16 @@ package seisaku.lib.net
 			return (getExpireTime()-_getTime())/24/60/60/1000;
 		}
 		
+		public function timeToExpiry():Number
+		{
+			return getExpireTime()-_getTime();
+		}
+		
+		public function hoursToExpiry():Number
+		{
+			return (getExpireTime()-_getTime())/60/60/1000;
+		}
+		
 		/**
 		 * Check to see if the SharedObject has any contents.
 		 */

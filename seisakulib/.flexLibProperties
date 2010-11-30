@@ -65,7 +65,7 @@
     <classEntry path="seisaku.lib.util.SHA1"/>
     <classEntry path="seisaku.lib.util.StringUtils"/>
     <classEntry path="seisaku.lib.util.Version"/>
-    <classEntry path="seisaku.lib.util.WanderingPoint"/>
+    <classEntry path="seisaku.lib.util.XMLUtils"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

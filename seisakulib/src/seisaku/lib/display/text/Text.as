@@ -60,7 +60,7 @@ package seisaku.lib.display.text
 		public function Text(p_text:String="",p_style:TextStyle=null,p_startHidden:Boolean=false)
 		{
 			_text = p_text;			
-			_style = p_style == null ? new TextStyle() : p_style;
+			_style = p_style == null ? new TextStyle() : p_style.clone();
 			
 			super(p_startHidden);
 		}

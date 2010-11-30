@@ -30,6 +30,7 @@ package seisaku.lib.util
 {	
 	import flash.events.StatusEvent;
 	import flash.net.LocalConnection;
+	import flash.system.Capabilities;
 	
 	
 	/**
@@ -77,7 +78,7 @@ package seisaku.lib.util
 			
 			var dateArray:Array = new Date().toString().split(" ");
 			
-			log("[Seisaku-lib AS3 "+Version.getVersionString()+" debug session started at "+dateArray[3]+"]",L4_SYSTEM);
+			log("[seisaku lib AS3 "+Version.getVersionString()+" on FP "+Capabilities.version+" at "+dateArray[3]+"]",L4_SYSTEM);
 		}
 		
 		/**

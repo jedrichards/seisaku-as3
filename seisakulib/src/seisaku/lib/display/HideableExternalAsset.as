@@ -184,6 +184,13 @@ package seisaku.lib.display
 				
 				_loader = null;
 			}
+			
+			super.dispose();
+		}
+		
+		public function getURI():String
+		{
+			return _uri;
 		}
 		
 		protected function _complete(p_event:Event):void

@@ -44,9 +44,9 @@ package seisaku.lib.media
 	import seisaku.lib.util.StringUtils;
 	
 	/**
-	 * Model and view for a progressively loaded On2-VP6 encoded FLV or MPEG-4 H.264/AAC based
+	 * Model and view for a *progressively* loaded On2-VP6 encoded FLV or MPEG-4 H.264/AAC based
 	 * video file (player 9.0.115.0 and later). This class is able to adapt to the different
-	 * types of metadata found in various file types. Not designed for use with FMS RMTP streams.
+	 * types of metadata found in various file types. Not designed for use with RMTP streams.
 	 * 
 	 * <p>In the context of these Media classes "preload time" is defined as the number
 	 * of seconds worth of media stream to preload before the MediaEvent.PRELOAD_COMPLETE
@@ -88,7 +88,6 @@ package seisaku.lib.media
 		protected var _controlsHolder:Sprite;
 		protected var _mp4MetaDataLoaded:Boolean;
 		protected var _standardMetaDataLoaded:Boolean;
-		protected var _invalidatePosition:Boolean;
 		protected var _minSecondsToPreload:Number;
 		protected var _maxSecondsToPreload:Number;
 		
@@ -573,6 +572,16 @@ package seisaku.lib.media
 			_controlsHolder = null;
 			
 			super.dispose();
+		}
+		
+		public function pauseStream():void
+		{
+			
+		}
+		
+		public function resumeStream():void
+		{
+			
 		}
 		
 		protected function _getPreloadProgress():Number

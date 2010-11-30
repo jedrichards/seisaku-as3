@@ -36,6 +36,7 @@ package seisaku.lib.puremvc
 	import seisaku.lib.data.XMLService;
 	import seisaku.lib.events.XMLServiceEvent;
 	import seisaku.lib.util.Debug;
+	import seisaku.lib.util.XMLUtils;
 
 	/**
 	 * PureMVC proxy to a static XML file, or dynamic XML based web service.
