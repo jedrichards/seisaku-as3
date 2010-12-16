@@ -166,6 +166,11 @@ package seisaku.lib.display.ui
 			_hitSprite.y = p_y;
 		}
 		
+		public function setHitAreaAlpha(p_value:Number):void
+		{
+			_hitSprite.alpha = 0;
+		}
+		
 		/**
 		 * Set whether to use a hand cursor when hovering over the hit area.
 		 * 

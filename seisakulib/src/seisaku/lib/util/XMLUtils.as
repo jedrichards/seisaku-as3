@@ -77,6 +77,11 @@ package seisaku.lib.util
 			return result;
 		}
 		
+		public static function getColourByNodeID(p_xml:XML,p_id:String):uint
+		{
+			return uint("0x"+getStringByNodeID(p_xml,p_id));
+		}
+		
 		/**
 		 * Find an XML node by its unique ID attribute value and return its contents as a number.
 		 * 

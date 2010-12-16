@@ -207,6 +207,11 @@ package seisaku.lib.display
 			_holder.addChild(p_child);
 		}
 		
+		public function getHolder():Sprite
+		{
+			return _holder;
+		}
+		
 		/**
 		 * Ready the instance for garbage collection.
 		 */
