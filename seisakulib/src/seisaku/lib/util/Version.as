@@ -34,7 +34,7 @@ package seisaku.lib.util
 	public class Version
 	{
 		public static const VERSION:String = "0";
-		public static const REV:String = "192";
+		public static const REV:String = "204";
 		
 		public static function getVersionString():String
 		{
