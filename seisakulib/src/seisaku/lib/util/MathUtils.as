@@ -236,6 +236,25 @@ package seisaku.lib.util
 			return limit(p_value,0,255);
 		}
 		
+		public static function tintRGB(p_value:Number,p_tintValue:Number,p_tintAmount:Number):Number
+		{
+			p_tintAmount = 1 - p_tintAmount;
+			
+			var r:Number = ( p_value & 0xFF0000 ) >> 16;
+			var g:Number = ( p_value & 0x00FF00 ) >> 8;
+			var b:Number = ( p_value & 0x0000FF );
+
+			var r1:Number = ( p_tintValue & 0xFF0000 ) >> 16;
+			var g1:Number = ( p_tintValue & 0x00FF00 ) >> 8;
+			var b1:Number = ( p_tintValue & 0x0000FF );
+			
+			r = Math.round( r + ( ( r1 - r ) * p_tintAmount ) );
+			g = Math.round( g + ( ( g1 - g ) * p_tintAmount ) );
+			b = Math.round( b + ( ( b1 - b ) * p_tintAmount ) );
+			
+			return ( r << 16 ) | ( g << 8 ) | b;
+		}
+		
 		/**
 		 * Returns a point geometrically between the two specified points. Use the
 		 * third argument, p_bias, to introduce a bias towards either the first or

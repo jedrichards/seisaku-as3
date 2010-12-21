@@ -100,7 +100,7 @@ package seisaku.lib.util
 		{
 			_validateLoaderInfo();
 			
-			return ( getValue(p_key) == null ) ? false : true; 
+			return ( getValue(p_key) == null || getValue(p_key) == "" ) ? false : true; 
 		}	
 		
 		/**
