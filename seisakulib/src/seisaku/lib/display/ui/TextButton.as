@@ -53,6 +53,7 @@ package seisaku.lib.display.ui
 		protected var _doColFade:Boolean;
 		protected var _style:TextStyle;
 		protected var _labelText:String;
+		protected var _selected:Boolean;
 		
 		/**
 		 * @param p_labelText Text content.
@@ -70,6 +71,7 @@ package seisaku.lib.display.ui
 			
 			_fadeDuration = 0.25;
 			_outColour = p_style.colour;
+			_selected = false;
 			
 			super(p_startHidden);
 		}
@@ -164,6 +166,34 @@ package seisaku.lib.display.ui
 			_hitSprite.height = _textField.getTextField().height;
 		}
 		
+		public function setSelected(p_selected:Boolean):void
+		{
+			_selected = p_selected;
+			
+			if ( _selected )
+			{
+				if ( _doColFade )
+				{
+					_colFade(_overColour);
+				}
+			}
+			else
+			{
+				if ( !_mouseOver )
+				{
+					if ( _doColFade )
+					{
+						_colFade(_outColour);
+					}
+				}
+			}
+		}
+		
+		public function getSelected():Boolean
+		{
+			return _selected;
+		}
+		
 		override protected function _rollOver(p_event:MouseEvent):void
 		{
 			super._rollOver(p_event);
@@ -178,9 +208,12 @@ package seisaku.lib.display.ui
 		{
 			super._rollOut(p_event);
 			
-			if ( _doColFade )
+			if ( !_selected )
 			{
-				_colFade(_outColour);
+				if ( _doColFade )
+				{
+					_colFade(_outColour);
+				}
 			}
 		}
 		
