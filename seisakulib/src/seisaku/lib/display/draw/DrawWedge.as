@@ -28,8 +28,8 @@
  
 package seisaku.lib.display.draw
 {	
-	import flash.geom.Point;
 	import flash.display.Graphics;
+	import flash.geom.Point;
 	
 	/**
 	 * Contains a static method for drawing a wedge (i.e. a section of a pie chart) with
@@ -44,8 +44,8 @@ package seisaku.lib.display.draw
 		 * @param p_center Origin of the wedge in the Graphics instance's coordinate space.
 		 * @param p_angle Starting angle, in degrees.
 		 * @param p_arc Sweep of the wedge, in degrees.  A negative value draws clockwise.
-		 * @param p_xRad X-radius of the wedge.
-		 * @param p_yRad Y-radius of the wedge.
+		 * @param p_xRad X radius of the wedge.
+		 * @param p_yRad Y radius of the wedge.
 		 */
 		public static function draw(p_g:Graphics,p_center:Point,p_angle:Number,p_arc:Number,p_xRad:Number,p_yRad:Number):void
 		{
@@ -84,6 +84,7 @@ package seisaku.lib.display.draw
 				{	
 					angle += theta;
 					angleMid = angle-(theta/2);
+					
 					bX = p_center.x+Math.cos(angle)*p_xRad;
 					bY = p_center.y+Math.sin(angle)*p_yRad;
 					cX = p_center.x+Math.cos(angleMid)*(p_xRad/Math.cos(theta/2));

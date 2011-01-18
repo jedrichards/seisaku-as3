@@ -28,16 +28,12 @@
  
 package seisaku.lib.display.ui
 {
-	import flash.display.BlendMode;
-	import flash.display.CapsStyle;
 	import flash.display.LineScaleMode;
-	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
 	import seisaku.lib.display.HideableSprite;
 	import seisaku.lib.display.draw.DrawArc;
-	import seisaku.lib.display.draw.DrawWedge;
 	import seisaku.lib.time.IThread;
 	import seisaku.lib.time.Thread;
 	import seisaku.lib.util.MathUtils;
@@ -96,7 +92,7 @@ package seisaku.lib.display.ui
 			_arc.graphics.clear();
 			_arc.graphics.lineStyle(_width,_circleColour,_circleAlpha,false,LineScaleMode.NORMAL,_capsStyle);
 			
-			DrawArc.draw(_arc,_radius,0,_radius,360*p_value,0);
+			DrawArc.draw(_arc.graphics,new Point(_radius,0),_radius,360*p_value,0);
 		}
 		
 		/**

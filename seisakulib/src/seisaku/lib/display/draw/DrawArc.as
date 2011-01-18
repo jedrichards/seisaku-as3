@@ -29,6 +29,7 @@
 package seisaku.lib.display.draw
 {
 	import flash.display.*;
+	import flash.geom.Point;
 	
 	/**
 	 * Contains a static method for drawing an arc.
@@ -37,8 +38,14 @@ package seisaku.lib.display.draw
 	{
 		/**
 		 * Draw an arc.
+		 * 
+		 * @param p_g Target Graphics instance.
+		 * @param p_center Origin of the arc in the Graphics instance's coordinate space.
+		 * @param p_radius Radius of the arc.
+		 * @param p_arc Sweep of the arc, in degrees.
+		 * @param p_startAngle Starting angle, in degrees.
 		 */
-		public static function draw(t:Sprite,sx:Number,sy:Number,radius:Number,arc:Number,startAngle:Number=0):void
+		public static function draw(p_g:Graphics,p_centre:Point,p_radius:Number,p_arc:Number,p_startAngle:Number=0):void
 		{
 			var segAngle:Number;
 			var angle:Number;
@@ -50,22 +57,21 @@ package seisaku.lib.display.draw
 			var by:Number;
 			var cx:Number;
 			var cy:Number;
+
+			p_g.moveTo(p_centre.x,p_centre.y);
 			
-			// Move the pen
-			t.graphics.moveTo(sx,sy);
-			
-			if (Math.abs(arc) > 360) 
+			if (Math.abs(p_arc) > 360) 
 			{
-				arc = 360;
+				p_arc = 360;
 			}
 			
-			numOfSegs = Math.ceil(Math.abs(arc) / 30);
-			segAngle = arc / numOfSegs;
+			numOfSegs = Math.ceil(Math.abs(p_arc) / 30);
+			segAngle = p_arc / numOfSegs;
 			segAngle = (segAngle / 180) * Math.PI;
-			angle = (startAngle / 180) * Math.PI;
+			angle = (p_startAngle / 180) * Math.PI;
 			
-			ax = sx - Math.cos(angle) * radius;
-			ay = sy - Math.sin(angle) * radius;
+			ax = p_centre.x - Math.cos(angle) * p_radius;
+			ay = p_centre.y - Math.sin(angle) * p_radius;
 			
 			for(var i:int=0; i<numOfSegs; i++) 
 			{
@@ -73,13 +79,13 @@ package seisaku.lib.display.draw
 				
 				angleMid = angle - (segAngle / 2);
 				
-				bx = ax + Math.cos(angle) * radius;
-				by = ay + Math.sin(angle) * radius;
+				bx = ax + Math.cos(angle) * p_radius;
+				by = ay + Math.sin(angle) * p_radius;
 				
-				cx = ax + Math.cos(angleMid) * (radius / Math.cos(segAngle / 2));
-				cy = ay + Math.sin(angleMid) * (radius / Math.cos(segAngle / 2));
+				cx = ax + Math.cos(angleMid) * (p_radius / Math.cos(segAngle / 2));
+				cy = ay + Math.sin(angleMid) * (p_radius / Math.cos(segAngle / 2));
 				
-				t.graphics.curveTo(cx,cy,bx,by);
+				p_g.curveTo(cx,cy,bx,by);
 			}
 		}
 	}
