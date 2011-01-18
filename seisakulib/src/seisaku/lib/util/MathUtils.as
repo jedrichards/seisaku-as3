@@ -194,6 +194,22 @@ package seisaku.lib.util
 		}
 		
 		/**
+		 * Convert a RGB value to an ARGB value with arbitrary alpha.
+		 * 
+		 * @param p_rgb RGB value.
+		 * @param p_alpha Alpha value of new ARGB value.
+		 */
+		public static function rgbToARGB(p_rgb:uint,p_alpha:uint):uint
+		{
+			var argb:uint = 0;
+			
+			argb += (p_alpha<<24);
+			argb += (p_rgb);
+			
+			return argb;
+		}
+		
+		/**
 		 * Insert a red value into a pre-existing RGB value.
 		 * 
 		 * @param p_rgb The full RGB value to manipulate.

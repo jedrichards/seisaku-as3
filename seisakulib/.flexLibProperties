@@ -5,6 +5,7 @@
     <classEntry path="seisaku.lib.data.XMLService"/>
     <classEntry path="seisaku.lib.display.HideableExternalAsset"/>
     <classEntry path="seisaku.lib.display.HideableSprite"/>
+    <classEntry path="seisaku.lib.display.draw.DrawArc"/>
     <classEntry path="seisaku.lib.display.draw.DrawRegularPoly"/>
     <classEntry path="seisaku.lib.display.draw.DrawStar"/>
     <classEntry path="seisaku.lib.display.draw.DrawWedge"/>
@@ -59,6 +60,7 @@
     <classEntry path="seisaku.lib.util.DisplayObjectUtils"/>
     <classEntry path="seisaku.lib.util.FlashVars"/>
     <classEntry path="seisaku.lib.util.GenericSetup"/>
+    <classEntry path="seisaku.lib.util.GenericShell"/>
     <classEntry path="seisaku.lib.util.LibraryUtils"/>
     <classEntry path="seisaku.lib.util.MathUtils"/>
     <classEntry path="seisaku.lib.util.ObjectUtils"/>
@@ -66,7 +68,7 @@
     <classEntry path="seisaku.lib.util.StringUtils"/>
     <classEntry path="seisaku.lib.util.Version"/>
     <classEntry path="seisaku.lib.util.XMLUtils"/>
-    <classEntry path="seisaku.lib.util.GenericShell"/>
+    <classEntry path="seisaku.lib.display.ui.ProgressCircle2"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

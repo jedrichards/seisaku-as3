@@ -152,6 +152,11 @@ package seisaku.lib.display.ui
 			_thread.start();
 		}
 		
+		public function setRadius(p_value:Number):void
+		{
+			_radius = p_value;
+		}
+		
 		/**
 		 * Return the current progress represented by the circle as a value from 0 to 1. This
 		 * value is not affected by any easing applied to the circle's motion.
