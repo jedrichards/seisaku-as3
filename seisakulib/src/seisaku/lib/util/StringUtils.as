@@ -244,7 +244,7 @@ package seisaku.lib.util
 		 * @p_name Name of the name/value pair.
 		 * @p_value Value of the name/value pair.
 		 */
-		public static function appendToQueryString(p_target:String,p_name:String,p_value:String):String
+		public static function appendToQueryString(p_target:String,p_name:String,p_value:*):String
 		{
 			var pair:String = p_name+"="+p_value;
 			
