@@ -4,21 +4,22 @@ package seisaku.lib.media
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.system.Security;
 	import flash.utils.Timer;
-	import flash.utils.describeType;
 	
 	import seisaku.lib.display.HideableSprite;
 	import seisaku.lib.events.VimeoVideoEvent;
+	import seisaku.lib.time.IThread;
+	import seisaku.lib.time.Thread;
 	import seisaku.lib.util.Debug;
-	import seisaku.lib.util.MathUtils;
 	import seisaku.lib.util.StringUtils;
 	
-	public class VimeoVideo extends HideableSprite
+	public class VimeoVideo extends HideableSprite implements IThread
 	{
 		private var _init:Boolean;
 		private var _playerLoaded:Boolean;
@@ -35,6 +36,11 @@ package seisaku.lib.media
 		private var _oAuthKey:String;
 		private var _fpVersion:int;
 		
+		private var _thread:Thread;
+		
+		private var _currentVideoLoaded:Boolean;
+		private var _currentVideoLoadStarted:Boolean;
+		
 		public function VimeoVideo(p_oAuthKey:String,p_width:int=400,p_height:int=300,p_fpVersion:int=10,p_startHidden:Boolean=false)
 		{
 			if ( !_init )
@@ -49,7 +55,9 @@ package seisaku.lib.media
 			_videoWidth = p_width;
 			_videoHeight = p_height;
 			_fpVersion = p_fpVersion;
-
+			
+			_thread = new Thread(this);
+			
 			super(p_startHidden);
 		}
 		
@@ -74,6 +82,8 @@ package seisaku.lib.media
 				return;
 			}
 			
+			_resetVars();
+			
 			_playerLoaded = true;
 			
 			var uri:String = "http://api.vimeo.com/moogaloop_api.swf";
@@ -92,14 +102,24 @@ package seisaku.lib.media
 
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE,_loaderComplete);
+			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,_loaderIOError);
 			_loader.load(new URLRequest(uri));
 		}
 		
-		private function _loaderComplete(e:Event):void
+		private function _loaderIOError(p_event:IOErrorEvent):void
 		{
-			_container.addChild(e.target.loader.content);
+			Debug.log("vimeoVideo: Error loading Moogaloop API SWF. "+p_event.text,Debug.L2_WARNING);
 			
-			_moogaloop = e.target.loader.content;
+			dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.PLAYER_LOAD_ERROR));
+		}
+		
+		private function _loaderComplete(p_e:Event):void
+		{
+			Debug.log("vimeoVideo: Moogaloop API SWF loaded, waiting for it to init ...");
+			
+			_container.addChild(_loader.content);
+			
+			_moogaloop = _loader.content;
 			
 			_loadTimer = new Timer(200);
 			_loadTimer.addEventListener(TimerEvent.TIMER,_playerLoadedCheck);
@@ -117,8 +137,48 @@ package seisaku.lib.media
 				
 				stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 				
-				dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.PLAYER_LOADED));
+				dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.PLAYER_READY));
+				
+				dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.VIDEO_SELECTED));
+				
+				_thread.start();
 			}
+		}
+		
+		public function run():void
+		{
+			var bytesLoaded:Number = _moogaloop.api_getBytesLoaded();
+			var bytesTotal:Number = _moogaloop.api_getBytesTotal();
+			
+			//trace(bytesLoaded+" / "+bytesTotal);
+			
+			if ( bytesLoaded > 0 )
+			{
+				if ( !_currentVideoLoadStarted )
+				{
+					_currentVideoLoadStarted = true;
+					
+					dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.VIDEO_LOAD_STARTED));
+				}
+				
+				if ( bytesLoaded < bytesTotal )
+				{
+					dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.VIDEO_LOAD_PROGRESS));
+				}
+				
+				if ( !_currentVideoLoaded && bytesLoaded == bytesTotal )
+				{
+					_currentVideoLoaded = true;
+					
+					dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.VIDEO_LOAD_COMPLETE));
+				}
+			}
+		}
+		
+		private function _resetVars():void
+		{
+			_currentVideoLoaded = false;
+			_currentVideoLoadStarted = false;
 		}
 		
 		private function setDimensions(w:int,h:int):void
@@ -126,9 +186,7 @@ package seisaku.lib.media
 			_videoWidth  = w;
 			_videoHeight = h;
 		}
-		
-		
-		
+
 		private function mouseMove(e:MouseEvent):void {
 			
 			var pos:Point = this.parent.localToGlobal(new Point(this.x, this.y));
@@ -174,8 +232,17 @@ package seisaku.lib.media
 			_moogaloop.api_changeColor(p_hex);
 		}
 		
+		public function getVideoLoadProgress():Number
+		{
+			return _moogaloop.api_getBytesLoaded() / _moogaloop.api_getBytesTotal();
+		}
+		
 		public function loadVideo(id:int):void
 		{
+			_resetVars();
+			
+			dispatchEvent(new VimeoVideoEvent(VimeoVideoEvent.VIDEO_SELECTED));
+			
 			_moogaloop.api_loadVideo(id);
 		}
 		
