@@ -90,7 +90,7 @@ package seisaku.lib.display
 				_uri = p_uri;
 			}
 			
-			_log("attempting to load \""+_uri+"\"");
+			//_log("attempting to load \""+_uri+"\"");
 						
 			_loaderContext.checkPolicyFile = _checkPolicyFile;
 						
@@ -195,7 +195,7 @@ package seisaku.lib.display
 		
 		protected function _complete(p_event:Event):void
 		{
-			_log("asset fully loaded \""+_uri+"\"",Debug.L2_WARNING);
+			_log("asset fully loaded \""+_uri+"\"");
 			
 			if ( _showOnLoad )
 			{

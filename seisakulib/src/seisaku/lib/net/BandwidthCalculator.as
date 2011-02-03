@@ -197,7 +197,7 @@ package seisaku.lib.net
 		
 		private function _progress(p_event:ProgressEvent):void
 		{
-			_log(p_event.type,Debug.L1_EVENT);
+			//_log(p_event.type,Debug.L1_EVENT);
 			
 			var event:BandwidthCalculatorEvent = new BandwidthCalculatorEvent(BandwidthCalculatorEvent.PROGRESS);
 			
