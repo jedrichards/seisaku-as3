@@ -35,18 +35,16 @@ package seisaku.lib.events
 	 */
 	public class ButtonEvent extends Event
 	{
-		public static const NAME:String = "ButtonEvent";
-		
-		public static const AS2_DRAG_OVER:String = NAME+"AS2DragOver";
-		public static const AS2_DRAG_OUT:String = NAME+"AS2DragOut";
-		public static const AS2_RELEASE_OUTSIDE:String = NAME+"AS2ReleaseOutside";
-		public static const CLICK:String = NAME+"Click";
-		public static const DOUBLE_CLICK:String = NAME+"DoubleClick";
-		public static const MOUSE_DOWN:String = NAME+"MouseDown";
-		public static const MOUSE_UP:String = NAME+"MouseUp";
-		public static const ROLL_OUT:String = NAME+"RollOut";
-		public static const ROLL_OVER:String = NAME+"RollOver";
-		public static const MOUSE_MOVE:String = NAME+"MouseMove";
+		public static const AS2_DRAG_OVER:String = "buttonAS2DragOver";
+		public static const AS2_DRAG_OUT:String = "buttonAS2DragOut";
+		public static const AS2_RELEASE_OUTSIDE:String = "buttonAS2ReleaseOutside";
+		public static const CLICK:String = "buttonClick";
+		public static const DOUBLE_CLICK:String = "buttonDoubleClick";
+		public static const MOUSE_DOWN:String = "buttonMouseDown";
+		public static const MOUSE_UP:String = "buttonMouseUp";
+		public static const ROLL_OUT:String = "buttonRollOut";
+		public static const ROLL_OVER:String = "buttonRollOver";
+		public static const MOUSE_MOVE:String = "buttonMouseMove";
 		
 		public var id:Number;
 		
@@ -66,7 +64,7 @@ package seisaku.lib.events
 		
 		override public function toString():String
 		{
-			return formatToString(NAME,"type","bubbles","cancelable","eventPhase","id");
+			return formatToString("button","type","bubbles","cancelable","eventPhase","id");
 		}
 	}
 }

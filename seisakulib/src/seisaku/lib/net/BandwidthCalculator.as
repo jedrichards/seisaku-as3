@@ -40,6 +40,7 @@ package seisaku.lib.net
 	
 	import seisaku.lib.events.BandwidthCalculatorEvent;
 	import seisaku.lib.util.Debug;
+	import seisaku.lib.util.MathUtils;
 	import seisaku.lib.util.StringUtils;
 	
 	/**
@@ -188,7 +189,7 @@ package seisaku.lib.net
 		
 		private function _open(p_event:Event):void
 		{	
-			_log(Event.OPEN,Debug.L1_EVENT);
+			//_log(Event.OPEN,Debug.L1_EVENT);
 			
 			_startMS = getTimer();
 			
@@ -217,7 +218,11 @@ package seisaku.lib.net
 				_bandwidth.setBytesPerSecond( _bandwidth.getBytesPerSecond() * _overhead );
 			}
 			
-			_log(Event.COMPLETE+" "+_bandwidth.getKiloBytesPerSecond()+" kB/s",Debug.L1_EVENT);
+			var kiloBitsPerSecond:Number = Math.round(_bandwidth.getKiloBitsPerSecond());
+			var kiloBytesPerSecond:Number = Math.round(_bandwidth.getKiloBytesPerSecond());
+			var megaBytesPerSecond:Number = MathUtils.round(_bandwidth.getKiloBytesPerSecond()*0.0009765625,2);
+			
+			_log("calucated "+kiloBitsPerSecond+" kb/s | "+kiloBytesPerSecond+" kB/s | "+megaBytesPerSecond+" MB/s ("+_overhead+" overhead)");
 			
 			var event:BandwidthCalculatorEvent = new BandwidthCalculatorEvent(BandwidthCalculatorEvent.COMPLETE);
 			
@@ -228,7 +233,7 @@ package seisaku.lib.net
 		
 		private function _httpStatus(p_event:HTTPStatusEvent):void
 		{	
-			_log(HTTPStatusEvent.HTTP_STATUS+" "+p_event.status+" "+HTTPStatusInfo.getType(p_event.status));
+			//_log(HTTPStatusEvent.HTTP_STATUS+" "+p_event.status+" "+HTTPStatusInfo.getType(p_event.status));
 		}
 		
 		private function _ioError(p_event:IOErrorEvent):void
@@ -249,7 +254,7 @@ package seisaku.lib.net
 		{
 			if ( _isVerbose )
 			{
-				Debug.log("BandwidthCalculator "+_fileName+" "+p_item,p_level,p_introspect,p_initTabs);
+				Debug.log("bandwidthCalculator: "+p_item,p_level,p_introspect,p_initTabs);
 			}
 		}
 	}

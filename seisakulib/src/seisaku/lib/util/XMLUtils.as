@@ -28,6 +28,9 @@
  
 package seisaku.lib.util
 {
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+
 	/**
 	 * A set of static methods for working with XML objects.
 	 */
@@ -92,6 +95,40 @@ package seisaku.lib.util
 		public static function getNumberByNodeID(p_xml:XML,p_id:String,p_default:Number=0):Number
 		{
 			return Number(getStringByNodeID(p_xml,p_id,String(p_default)));
+		}
+		
+		public static function nodeToString(p_xml:XMLList):String
+		{
+			return p_xml.toString();
+		}
+		
+		public static function nodeToNumber(p_xml:XMLList):Number
+		{
+			return parseFloat(p_xml.toString());
+		}
+		
+		public static function nodeToColour(p_xml:XMLList):uint
+		{
+			return MathUtils.stringToHex(p_xml.toString());
+		}
+		
+		public static function nodeToInteger(p_xml:XMLList):int
+		{
+			return parseInt(p_xml.toString());
+		}
+		
+		public static function nodeToPoint(p_xml:XMLList):Point
+		{
+			var temp:Array = p_xml.toString().split(",");
+			
+			return new Point(temp[0],temp[1]);
+		}
+		
+		public static function nodeToRect(p_xml:XMLList):Rectangle
+		{
+			var temp:Array = p_xml.toString().split(",");
+			
+			return new Rectangle(temp[0],temp[1],temp[2],temp[3]);
 		}
 	}
 }

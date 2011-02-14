@@ -31,6 +31,7 @@ package seisaku.lib.display
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
+	import flash.display.PixelSnapping;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
@@ -52,12 +53,14 @@ package seisaku.lib.display
 		protected var _uri:String;
 		protected var _showOnLoad:Boolean;
 		protected var _loaderContext:LoaderContext;
+		protected var _smooth:Boolean;
 		
-		public function HideableExternalAsset(p_uri:String="",p_isVerbose:Boolean=false,p_showOnLoad:Boolean=false,p_startHidden:Boolean=false)
+		public function HideableExternalAsset(p_uri:String="",p_isVerbose:Boolean=false,p_showOnLoad:Boolean=false,p_smooth:Boolean=false,p_startHidden:Boolean=false)
 		{
 			_isVerbose = p_isVerbose;
 			_uri = p_uri;
 			_showOnLoad = p_showOnLoad;
+			_smooth = p_smooth;
 			
 			_checkPolicyFile = false;
 
@@ -91,7 +94,7 @@ package seisaku.lib.display
 			}
 			
 			//_log("attempting to load \""+_uri+"\"");
-						
+			
 			_loaderContext.checkPolicyFile = _checkPolicyFile;
 						
 			try
@@ -200,6 +203,15 @@ package seisaku.lib.display
 			if ( _showOnLoad )
 			{
 				show();
+			}
+			
+			if ( _smooth )
+			{
+				if ( getContent() is Bitmap )
+				{
+					Bitmap(getContent()).smoothing = true;
+					Bitmap(getContent()).pixelSnapping = PixelSnapping.NEVER;
+				}
 			}
 			
 			dispatchEvent(new HideableExternalAssetEvent(HideableExternalAssetEvent.FULLY_LOADED));

@@ -42,6 +42,10 @@ package seisaku.lib.util
 	import seisaku.lib.display.ui.ProgressBar;
 	import seisaku.lib.events.HideableSpriteEvent;
 	
+	/**
+	 * Main document class shell, loads in a sub module SWF that contains the main application
+	 * functionality.
+	 */
 	public class GenericShell extends Sprite
 	{
 		protected var _preloaderView:HideableSprite;
@@ -69,7 +73,7 @@ package seisaku.lib.util
 		
 		protected function _createPreloaderView():void
 		{
-			_preloaderView = new ProgressBar(200,2,0x000000,0xcccccc,1,1,true);
+			_preloaderView = new ProgressBar(200,2,0x000000,0xcccccc,1,1);
 			addChild(_preloaderView);
 			
 			DisplayObjectUtils.centerInStage(_preloaderView,stage,true);
@@ -77,7 +81,10 @@ package seisaku.lib.util
 		
 		protected function _updatePreloaderViewProgress(p_progress:Number):void
 		{
-			ProgressBar(_preloaderView).setProgress(p_progress);
+			if ( _preloaderView )
+			{
+				ProgressBar(_preloaderView).setProgress(p_progress);
+			}
 		}
 		
 		protected function _loadSubModule():void
@@ -86,16 +93,16 @@ package seisaku.lib.util
 			
 			if ( FlashVars.valueExists(_subModuleSWFPathFlashVarName) )
 			{
-				Debug.log("GenericShell: sub module SWF path flashvar found");
+				Debug.log("genericShell: sub module SWF path flashvar found");
 				
 				subModuleSWFPath = FlashVars.getValue(_subModuleSWFPathFlashVarName);
 			}
 			else
 			{
-				Debug.log("GenericShell: sub module SWF path flashvar not found");
+				Debug.log("genericShell: sub module SWF path flashvar not found");
 			}
 			
-			Debug.log("GenericShell: loading sub module SWF from path \""+subModuleSWFPath+"\"");
+			Debug.log("genericShell: loading sub module SWF from path \""+subModuleSWFPath+"\"");
 			
 			_loader.load(new URLRequest(subModuleSWFPath));
 		}
@@ -107,7 +114,7 @@ package seisaku.lib.util
 		
 		protected function _loaderComplete(p_e:Event):void
 		{
-			Debug.log("GenericShell: sub module SWF load complete");
+			Debug.log("genericShell: sub module SWF load complete");
 			
 			_updatePreloaderViewProgress(1);
 		}
@@ -119,7 +126,7 @@ package seisaku.lib.util
 		
 		protected function _loaderIOError(p_e:IOErrorEvent):void
 		{
-			Debug.log("GenericShell: error loading sub module SWF",Debug.L3_CRITICAL);
+			Debug.log("genericShell: error loading sub module SWF",Debug.L3_CRITICAL);
 		}
 	}
 }

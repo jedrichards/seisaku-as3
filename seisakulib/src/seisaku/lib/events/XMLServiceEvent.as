@@ -35,6 +35,8 @@ package seisaku.lib.events
 	 */
 	public class XMLServiceEvent extends Event
 	{
+		public var error:String;
+		
 		/**
 		 * This event is dispatched when the data service has fully loaded in the XML,
 		 * any parsing has been completed and the instance is ready to be queried.
@@ -58,7 +60,11 @@ package seisaku.lib.events
 		
 		override public function clone():Event
 		{
-			return new XMLServiceEvent(type,bubbles,cancelable);
+			var event:XMLServiceEvent = new XMLServiceEvent(type,bubbles,cancelable);
+			
+			event.error = error;
+			
+			return event;
 		}
 		
 		override public function toString():String

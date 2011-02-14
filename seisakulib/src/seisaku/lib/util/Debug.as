@@ -66,7 +66,7 @@ package seisaku.lib.util
 			{
 				return;
 			}
-			
+
 			logToConsole = p_logToConsole;
 			logToIDE = p_logToIDE;
 			

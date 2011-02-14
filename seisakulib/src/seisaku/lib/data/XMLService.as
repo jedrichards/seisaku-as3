@@ -170,7 +170,11 @@ package seisaku.lib.data
 				
 				_log(XMLServiceEvent.PARSE_ERROR+" "+p_error.message,Debug.L2_WARNING);
 				
-				dispatchEvent(new XMLServiceEvent(XMLServiceEvent.PARSE_ERROR));
+				var event:XMLServiceEvent = new XMLServiceEvent(XMLServiceEvent.PARSE_ERROR);
+				
+				event.error = p_error.message;
+				
+				dispatchEvent(event);
 			}
 		}
 		

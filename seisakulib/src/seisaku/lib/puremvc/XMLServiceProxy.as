@@ -90,7 +90,7 @@ package seisaku.lib.puremvc
 		
 		protected function _xmlParseError(p_event:XMLServiceEvent):void
 		{
-			_log(p_event.type,Debug.L2_WARNING);
+			_log(p_event.type+" ("+p_event.error+")",Debug.L2_WARNING);
 		}
 		
 		protected function _xmlReady(p_event:XMLServiceEvent):void

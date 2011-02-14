@@ -29,6 +29,7 @@
 package seisaku.lib.puremvc
 {
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.patterns.mediator.Mediator;
@@ -59,7 +60,8 @@ package seisaku.lib.puremvc
 			_base.addEventListener(HideableSpriteEvent.SHOW_COMPLETE,_baseShowComplete);
 			_base.addEventListener(HideableSpriteEvent.HIDE,_baseHideStart);
 			_base.addEventListener(HideableSpriteEvent.HIDE_COMPLETE,_baseHideComplete);
-			viewComponent.addChild(_base);
+			
+			DisplayObjectContainer(viewComponent).addChild(_base);
 		}
 		
 		/**

@@ -151,6 +151,16 @@ package seisaku.lib.util
 		}
 		
 		/**
+		 * Convert a hexadecimal string to a uint.
+		 * 
+		 * @param p_string Hex string to convert.
+		 */
+		public static function stringToHex(p_string:String):uint
+		{
+			return parseInt(p_string,16);
+		}
+		
+		/**
 		 * Extract the red component from a decimal RGB value.
 		 * 
 		 * @param p_rgb Decimal RGB number to convert.
@@ -458,6 +468,24 @@ package seisaku.lib.util
 		public static function approach(p_value1:Number,p_value2:Number,p_bias:Number=0.5):Number
 		{	
 			return p_value1-((p_value1-p_value2)*p_bias)
+		}
+		
+		/**
+		 * Calculate a scale value based on a distance. Useful for scaling objects based on
+		 * proximity to the mouse. Rate of scaling increases as distance decreases.
+		 * 
+		 * @param p_minScale Minimum scale
+		 * @param p_maxScale Maximum scale
+		 * @param p_maxDist Maximum distance, past which returned scale will be equal to p_minScale
+		 * @param p_distance Actual distance, e.g. between mouse and object
+		 * @param p_pow Power
+		 */
+		public static function scaleByDistance(p_minScale:Number,p_maxScale:Number,p_maxDist:Number,p_distance:Number,p_pow:Number=0.5):Number
+		{			
+			var a:Number = (1-p_minScale/p_maxScale)/(p_minScale*Math.sqrt(p_maxDist))
+			var b:Number = 1/p_maxScale;
+			
+			return 1/(a*Math.pow(p_distance,p_pow)+b);
 		}
 		
 		/**

@@ -123,7 +123,7 @@ package seisaku.lib.display.ui
 			_handleMaxX = _trackWidth-_handleWidth;
 		}
 		
-		private function _dragHandleMouseRollOver(p_event:ButtonEvent):void
+		protected function _dragHandleMouseRollOver(p_event:ButtonEvent):void
 		{
 			if ( _tintHandle )
 			{
@@ -131,7 +131,7 @@ package seisaku.lib.display.ui
 			}
 		}
 		
-		private function _dragHandleMouseRollOut(p_event:ButtonEvent):void
+		protected function _dragHandleMouseRollOut(p_event:ButtonEvent):void
 		{
 			if ( !_isHandleDown )
 			{
@@ -142,7 +142,7 @@ package seisaku.lib.display.ui
 			}
 		}
 		
-		private function _dragHandleMouseDown(p_event:ButtonEvent):void
+		protected function _dragHandleMouseDown(p_event:ButtonEvent):void
 		{	
 			_isHandleDown = true;
 			
@@ -153,7 +153,7 @@ package seisaku.lib.display.ui
 			dispatchEvent(new SliderEvent(SliderEvent.HANDLE_DOWN));
 		}
 		
-		private function _dragHandleMouseUp(p_event:ButtonEvent):void
+		protected function _dragHandleMouseUp(p_event:ButtonEvent):void
 		{	
 			_isHandleDown = false;
 			
@@ -172,7 +172,7 @@ package seisaku.lib.display.ui
 			dispatchEvent(new SliderEvent(SliderEvent.HANDLE_UP));
 		}
 		
-		private function _trackClick(p_event:ButtonEvent):void
+		protected function _trackClick(p_event:ButtonEvent):void
 		{	
 			setPosition(MathUtils.normalise(mouseX-(_handleWidth/2),0,_handleMaxX));
 		}

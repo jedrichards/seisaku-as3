@@ -37,9 +37,6 @@ package seisaku.lib.display.ui
 	import seisaku.lib.display.HideableSprite;
 	import seisaku.lib.util.MathUtils;
 	
-	/**
-	 * Uses BitmapData to draw a dotted line.
-	 */
 	public class DottedLine extends HideableSprite
 	{
 		private var _length:Number;
@@ -48,14 +45,16 @@ package seisaku.lib.display.ui
 		private var _bitmapData:BitmapData;
 		private var _colour:Number;
 		private var _alpha:Number;
-		private var _size:Number;
+		private var _width:Number;
+		private var _height:Number;
 		private var _spacing:Number;
 		
-		public function DottedLine(p_length:Number,p_colour:Number,p_size:Number=2,p_spacing:Number=3,p_alpha:Number=1,p_startHidden:Boolean=false)
+		public function DottedLine(p_length:Number,p_colour:Number,p_width:Number=2,p_height:Number=2,p_spacing:Number=3,p_alpha:Number=1,p_startHidden:Boolean=false)
 		{
 			_length = p_length;
 			_colour = MathUtils.rgbToARGB(p_colour,255);
-			_size = p_size;
+			_width = p_width;
+			_height = p_height;
 			_alpha = p_alpha;
 			_spacing = p_spacing;
 			
@@ -66,20 +65,16 @@ package seisaku.lib.display.ui
 		{
 			super._createChildren();
 			
-			_bitmapData = new BitmapData(_length,_size,true,0);
+			_bitmapData = new BitmapData(_length,_height,true,0);
 			_bitmapData.lock();
 			
-			var numSteps:Number = Math.floor(_length/(_size+_spacing));
+			var numSteps:Number = Math.floor(_length/(_width+_spacing));
 			var xPos:Number = 0;
 			for ( var i:Number=0; i<numSteps; i++ )
 			{	
-				_bitmapData.fillRect(new Rectangle(xPos,0,_size,_size),_colour);
+				_bitmapData.fillRect(new Rectangle(xPos,0,_width,_height),_colour);
 				
-				xPos += _size+_spacing;
-				/*if ( MathUtils.isEven(i) )
-				{
-					_bitmapData.fillRect(new Rectangle(i*_size,0,_size,_size),_colour);
-				}*/
+				xPos += _width+_spacing;
 			}
 			
 			_bitmapData.unlock();
