@@ -47,9 +47,29 @@ package seisaku.lib.events
 		 */
 		public static const SLIDER_UPDATING:String = "sliderUpdating";
 		
+		/**
+		 * This event is fired once all slider movement has completed, either when
+		 * interaction stops if there is no easing, or at the end of the easing animation
+		 * if easing has been applied.
+		 */
+		public static const SLIDER_UPDATING_STOPPED:String = "sliderUpdatingStopped";
+		
+		/**
+		 * This event is fired when the mouse is pressed down on the slider handle,
+		 * i.e. when interaction begins.
+		 */
 		public static const HANDLE_DOWN:String = "handleDown";
 		
+		/**
+		 * This event is fired when the mouse if lifted off the slider handle,
+		 * i.e. when interaction has finished.
+		 */
 		public static const HANDLE_UP:String = "handleUp";
+		
+		/**
+		 * This event is fired when a position tween completes.
+		 */
+		public static const TWEEN_POSITION_COMPLETE:String = "tweenPositionComplete";
 		
 		public function SliderEvent(p_type:String,p_bubbles:Boolean=false,p_cancelable:Boolean=false)
 		{

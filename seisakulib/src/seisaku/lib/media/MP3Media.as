@@ -56,9 +56,6 @@ package seisaku.lib.media
 	 * of seconds worth of media stream to preload before the MediaEvent.PRELOAD_COMPLETE
 	 * event is fired.</p>
 	 * 
-	 * <p>If the duration of the MP3 is not found in the ID3 tags the class will attempt
-	 * to estimate the duration with increasing accuracy as the sound is loaded in.</p>
-	 * 
 	 * @see seisaku.lib.events.MediaEvent MediaEvent
 	 * @see seisaku.lib.media.MediaState MediaState
 	 */
@@ -161,7 +158,7 @@ package seisaku.lib.media
 		}
 		
 		/**
-		 * Play the MP3 in its current position.
+		 * Play the MP3 from its current position.
 		 */
 		public function play():void
 		{	
@@ -190,8 +187,6 @@ package seisaku.lib.media
 		
 		/**
 		 * Pause the media in its current position.
-		 * 
-		 * @throws seisaku.lib.media.MediaError You may call pause when there is no MP3 loaded.
 		 */
 		public function pause():void
 		{	
@@ -240,7 +235,6 @@ package seisaku.lib.media
 			
 			try
 			{
-				
 				_sound.close();
 			}
 			catch(p_error:IOError)
@@ -266,6 +260,8 @@ package seisaku.lib.media
 			_isMuted = p_value;
 			
 			_applyVolume( _isMuted ? 0 : _volume );
+			
+			dispatchEvent(new MediaEvent(MediaEvent.VOLUME_CHANGE));
 		}
 		
 		/**
@@ -292,9 +288,9 @@ package seisaku.lib.media
 			
 			_isMuted = ( _volume == 0 ) ? true : false;
 			
-			dispatchEvent(new MediaEvent(MediaEvent.VOLUME_CHANGE));
-			
 			_applyVolume(_volume);
+			
+			dispatchEvent(new MediaEvent(MediaEvent.VOLUME_CHANGE));
 		}
 		
 		/**

@@ -28,8 +28,9 @@
  
 package seisaku.lib.util
 {	 
-	import seisaku.lib.util.MathUtils;
 	import flash.utils.ByteArray;
+	
+	import seisaku.lib.util.MathUtils;
 
 	/**
 	 * A set of static methods for working with arrays.
@@ -184,6 +185,21 @@ package seisaku.lib.util
 			}
 			
 			return -1;
+		}
+		
+		public static function isNumeric(p_array:Array):Boolean
+		{
+			var numeric:Boolean = true;
+			
+			for ( var i:Number=0; i<p_array.length; i++ )
+			{
+				if ( isNaN(p_array[i]) )
+				{
+					numeric = false;
+				}
+			}
+			
+			return numeric;
 		}
 	}
 }

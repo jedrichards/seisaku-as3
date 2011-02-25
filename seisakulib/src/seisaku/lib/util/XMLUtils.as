@@ -48,12 +48,12 @@ package seisaku.lib.util
 			
 			if ( list.length() == 0 )
 			{
-				Debug.log("XMLUtils: warning, node with ID \""+p_id+"\" not found",Debug.L2_WARNING);
+				Debug.log("XMLUtils warning: node with id \""+p_id+"\" not found",Debug.L2_WARNING);
 			}
 			
 			if ( list.length() > 1 )
 			{
-				Debug.log("XMLUtils: warning, node ID \""+p_id+"\" is not unique",Debug.L2_WARNING);
+				Debug.log("XMLUtils warning: node id \""+p_id+"\" is not unique",Debug.L2_WARNING);
 			}
 			
 			return list[0] as XML;
@@ -97,38 +97,59 @@ package seisaku.lib.util
 			return Number(getStringByNodeID(p_xml,p_id,String(p_default)));
 		}
 		
-		public static function nodeToString(p_xml:XMLList):String
+		public static function nodeToString(p_xml:*):String
 		{
 			return p_xml.toString();
 		}
 		
-		public static function nodeToNumber(p_xml:XMLList):Number
+		public static function nodeToNumber(p_xml:*):Number
 		{
 			return parseFloat(p_xml.toString());
 		}
 		
-		public static function nodeToColour(p_xml:XMLList):uint
+		public static function nodeToColour(p_xml:*):uint
 		{
 			return MathUtils.stringToHex(p_xml.toString());
 		}
 		
-		public static function nodeToInteger(p_xml:XMLList):int
+		public static function nodeToInteger(p_xml:*):int
 		{
 			return parseInt(p_xml.toString());
 		}
 		
-		public static function nodeToPoint(p_xml:XMLList):Point
+		public static function nodeToBoolean(p_xml:*):Boolean
 		{
-			var temp:Array = p_xml.toString().split(",");
+			var s:String = XMLUtils.nodeToString(p_xml);
 			
-			return new Point(temp[0],temp[1]);
+			return s == "true" || s == "1" ? true : false;
 		}
 		
-		public static function nodeToRect(p_xml:XMLList):Rectangle
+		public static function nodeToPoint(p_xml:*):Point
 		{
 			var temp:Array = p_xml.toString().split(",");
 			
-			return new Rectangle(temp[0],temp[1],temp[2],temp[3]);
+			if ( temp.length == 2 && ArrayUtils.isNumeric(temp) )
+			{
+				return new Point(temp[0],temp[1]);
+			}
+			else
+			{
+				return new Point(0,0);
+			}
+		}
+		
+		public static function nodeToRect(p_xml:*):Rectangle
+		{
+			var temp:Array = p_xml.toString().split(",");
+			
+			if ( temp.length == 4 && ArrayUtils.isNumeric(temp) )
+			{
+				return new Rectangle(temp[0],temp[1],temp[2],temp[3]);
+			}
+			else
+			{
+				return new Rectangle(0,0,0,0);
+			}
 		}
 	}
 }

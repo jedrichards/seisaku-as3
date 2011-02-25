@@ -30,6 +30,8 @@ package seisaku.lib.display.ui
 {	 
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Linear;
+	import com.greensock.plugins.EndArrayPlugin;
+	import com.greensock.plugins.TweenPlugin;
 	
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
@@ -64,6 +66,8 @@ package seisaku.lib.display.ui
 		protected var _easing:Number;
 		protected var _handleOverColour:Number;
 		protected var _tintHandle:Boolean;
+		protected var _tweenArray:Array;
+		protected var _posTweenStarted:Boolean;
 		
 		/**
 		 * @param p_trackWidth Width of the slider track in pixels.
@@ -78,6 +82,8 @@ package seisaku.lib.display.ui
 		 */
 		public function Slider(p_trackWidth:Number,p_trackHeight:Number,p_handleWidth:Number,p_trackColour:Number,p_trackAlpha:Number,p_handleColour:Number,p_handleAlpha:Number,p_handleOverColour:Number,p_startHidden:Boolean=false)
 		{
+			TweenPlugin.activate([EndArrayPlugin]);
+			
 			_trackWidth = p_trackWidth;
 			_trackHeight = p_trackHeight;
 			_handleWidth = p_handleWidth;
@@ -195,6 +201,20 @@ package seisaku.lib.display.ui
 			}
 			
 			dispatchEvent(new SliderEvent(SliderEvent.SLIDER_UPDATING));
+			
+			
+			
+			if ( !_thread.getIsRunning() )
+			{
+				dispatchEvent(new SliderEvent(SliderEvent.SLIDER_UPDATING_STOPPED));
+				
+				if ( _posTweenStarted )
+				{
+					_posTweenStarted = false;
+					
+					dispatchEvent(new SliderEvent(SliderEvent.TWEEN_POSITION_COMPLETE));
+				}
+			}
 		}
 		
 		public function setTrackClickable(p_value:Boolean):void
@@ -220,6 +240,25 @@ package seisaku.lib.display.ui
 			dispatchEvent(new SliderEvent(SliderEvent.SLIDER_UPDATED));
 			
 			_thread.start();
+		}
+		
+		public function tweenPosition(p_value:Number,p_duration:Number,p_ease:Function=null):void
+		{
+			_posTweenStarted = true;
+			
+			if ( p_ease == null )
+			{
+				p_ease = Linear.easeNone;
+			}
+			
+			_tweenArray = [getPosition()];
+			
+			TweenLite.to(_tweenArray,p_duration,{ease:p_ease,endArray:[p_value],onUpdate:_tweenPosUpdate});
+		}
+		
+		private function _tweenPosUpdate():void
+		{
+			setPosition(_tweenArray[0]);
 		}
 		
 		/**

@@ -288,7 +288,6 @@ package seisaku.lib.display.ui
 		
 		protected function _mouseUp(p_event:MouseEvent):void
 		{
-			
 			dispatchEvent(_getEvent(ButtonEvent.MOUSE_UP));
 			
 			stage.removeEventListener(MouseEvent.MOUSE_UP,_onStageMouseUp);

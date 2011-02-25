@@ -80,9 +80,15 @@ package seisaku.lib.time
 			{
 				return;
 			}
+			
 			_isRunning = false;
 			
 			ThreadManager.detach(_target);
+		}
+		
+		public function getIsRunning():Boolean
+		{
+			return _isRunning;
 		}
 	}
 }
