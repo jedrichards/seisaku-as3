@@ -150,16 +150,16 @@ package seisaku.lib.display
 		 */		
 		override public function dispose():void
 		{
-			if ( _loader.content )
-			{
-				if ( _loader.content is Bitmap )
-				{
-					Bitmap(_loader.content).bitmapData.dispose();
-				}
-			}
-			
 			if ( _loader )
 			{
+				if ( _loader.content )
+				{
+					if ( _loader.content is Bitmap )
+					{
+						Bitmap(_loader.content).bitmapData.dispose();
+					}
+				}
+				
 				try
 				{
 					_loader.unload();

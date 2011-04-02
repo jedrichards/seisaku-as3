@@ -96,6 +96,12 @@ package seisaku.lib.puremvc
 			_base.hide(p_fade,p_delay);
 		}
 		
+		public function move(p_x:Number,p_y:Number):void
+		{
+			_base.x = p_x;
+			_base.y = p_y;
+		}
+		
 		protected function _baseShowStart(p_event:HideableSpriteEvent):void
 		{
 			if ( _isFirstShow )

@@ -71,6 +71,7 @@
     <classEntry path="seisaku.lib.display.ui.ProgressCircle2"/>
     <classEntry path="seisaku.lib.media.VimeoVideo"/>
     <classEntry path="seisaku.lib.display.ui.DottedLine"/>
+    <classEntry path="seisaku.lib.display.text.MultiParagraphText"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

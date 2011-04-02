@@ -23,12 +23,12 @@ package seisaku.lib.util
 		 * 
 		 * @param p_root Reference to the root DisplayObjectContainer.
 		 */
-		public static function init(p_root:DisplayObjectContainer):void
+		public static function init(p_root:DisplayObjectContainer,p_stageAlign:String="TL"):void
 		{
 			p_root.stage.quality = StageQuality.BEST;
 			p_root.stage.showDefaultContextMenu = false;
 			p_root.stage.scaleMode = StageScaleMode.NO_SCALE;
-			p_root.stage.align = StageAlign.TOP_LEFT;
+			p_root.stage.align = p_stageAlign;
 			p_root.stage.stageFocusRect = false;
 			
 			FlashVars.init(p_root.loaderInfo);

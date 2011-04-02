@@ -242,6 +242,11 @@ package seisaku.lib.display.ui
 			_thread.start();
 		}
 		
+		public function stealthSnapToPosition(p_value:Number):void
+		{
+			_dragHandle.x = _handle.x = MathUtils.interpolate(MathUtils.limit(p_value,0,1),0,_handleMaxX);
+		}
+		
 		public function tweenPosition(p_value:Number,p_duration:Number,p_ease:Function=null):void
 		{
 			_posTweenStarted = true;

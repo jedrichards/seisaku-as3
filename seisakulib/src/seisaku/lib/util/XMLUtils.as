@@ -101,8 +101,6 @@ package seisaku.lib.util
 		{
 			var s:String = p_xml.toString();
 			
-			//trace("s = "+s+", s is null = "+(s==null)+", s is empty string = "+(s==""));
-			
 			return p_xml.toString();
 		}
 		

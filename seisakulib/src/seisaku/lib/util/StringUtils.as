@@ -469,6 +469,30 @@ package seisaku.lib.util
 		}
 		
 		/**
+		 * Restrict a string to a sequence of valid characters. Use to
+		 * strip punctuation, for example.
+		 */
+		public static function restrictTo(p_target:String,p_validChars:String=""):String
+		{
+			if ( p_validChars == "" )
+			{
+				p_validChars = " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			}
+			
+			var restricted:String = "";
+			
+			for ( var i:uint=0; i<p_target.length; i++ )
+			{
+				if ( p_validChars.indexOf(p_target.charAt(i)) > -1 )
+				{
+					restricted += p_target.charAt(i);
+				}
+			}
+			
+			return restricted;
+		}
+		
+		/**
 		 * Finds URLs in a string and wraps in <a> tags.
 		 * 
 		 * @param p_target Target string to add links to.
