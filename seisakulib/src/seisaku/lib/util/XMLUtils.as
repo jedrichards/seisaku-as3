@@ -30,6 +30,7 @@ package seisaku.lib.util
 {
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.ByteArray;
 
 	/**
 	 * A set of static methods for working with XML objects.
@@ -101,7 +102,7 @@ package seisaku.lib.util
 		{
 			var s:String = p_xml.toString();
 			
-			return p_xml.toString();
+			return s;
 		}
 		
 		public static function nodeToNumber(p_xml:*):Number
@@ -152,6 +153,13 @@ package seisaku.lib.util
 			{
 				return new Rectangle(0,0,0,0);
 			}
+		}
+		
+		public static function embeddedDataToXML(p_data:Class):XML
+		{
+			var bytes:ByteArray = new p_data() as ByteArray;
+			
+			return XML(bytes.readUTFBytes(bytes.length));
 		}
 	}
 }

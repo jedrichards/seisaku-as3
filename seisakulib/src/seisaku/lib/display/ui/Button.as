@@ -257,9 +257,9 @@ package seisaku.lib.display.ui
 		
 		protected function _rollOver(p_event:MouseEvent):void
 		{
-			dispatchEvent(_getEvent(ButtonEvent.ROLL_OVER));
-			
 			_mouseOver = true;
+			
+			dispatchEvent(_getEvent(ButtonEvent.ROLL_OVER));
 			
 			if ( p_event.buttonDown )
 			{
@@ -269,9 +269,9 @@ package seisaku.lib.display.ui
 		
 		protected function _rollOut(p_event:MouseEvent):void
 		{
-			dispatchEvent(new ButtonEvent(ButtonEvent.ROLL_OUT));
-			
 			_mouseOver = false;
+			
+			dispatchEvent(new ButtonEvent(ButtonEvent.ROLL_OUT));
 			
 			if ( p_event.buttonDown && _hitSprite.stage != null )
 			{

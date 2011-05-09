@@ -212,6 +212,11 @@ package seisaku.lib.display
 			return _holder;
 		}
 		
+		public function removeChildFromHolder(p_child:DisplayObject):void
+		{
+			_holder.removeChild(p_child);
+		}
+		
 		/**
 		 * Ready the instance for garbage collection.
 		 */

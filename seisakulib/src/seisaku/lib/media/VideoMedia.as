@@ -115,7 +115,9 @@ package seisaku.lib.media
 		 * when it gets to the end.
 		 */
 		public var loop:Boolean;
-				
+		
+		public var autoPlayWhenPreloaded:Boolean;
+		
 		/**
 		 * @param p_isVerbose Boolean value specifying whether the instance should output events and errors.
 		 * @param p_startHidden Whether to create the HideableSprite on stage in a hidden state.
@@ -616,6 +618,11 @@ package seisaku.lib.media
 				dispatchEvent(new MediaEvent(MediaEvent.PRELOAD_COMPLETE));
 
 				_log(MediaEvent.PRELOAD_COMPLETE,Debug.L1_EVENT);
+				
+				if ( autoPlayWhenPreloaded )
+				{
+					play();
+				}
 			}
 		}
 		

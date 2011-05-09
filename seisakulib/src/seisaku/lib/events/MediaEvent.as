@@ -132,6 +132,11 @@ package seisaku.lib.events
 		 */
 		public static const EXIT_SUBTITLE:String = "mediaExitSubtitle";
 		
+		/**
+		 * Dispatched when the still JPG image is loaded in a VideoMediaWithStill instance
+		 */
+		public static const STILL_LOADED:String = "stillLoaded";
+		
 		public var netStatusCode:String;
 		public var loadProgress:Number;
 		public var preloadProgress:Number;

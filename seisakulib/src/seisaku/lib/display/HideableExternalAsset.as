@@ -54,6 +54,7 @@ package seisaku.lib.display
 		protected var _showOnLoad:Boolean;
 		protected var _loaderContext:LoaderContext;
 		protected var _smooth:Boolean;
+		protected var _isLoaded:Boolean;
 		
 		public function HideableExternalAsset(p_uri:String="",p_isVerbose:Boolean=false,p_showOnLoad:Boolean=false,p_smooth:Boolean=false,p_startHidden:Boolean=false)
 		{
@@ -63,7 +64,8 @@ package seisaku.lib.display
 			_smooth = p_smooth;
 			
 			_checkPolicyFile = false;
-
+			_isLoaded = false;
+			
 			super(p_startHidden);
 		}
 		
@@ -145,6 +147,11 @@ package seisaku.lib.display
 			return _loader.content as DisplayObject;
 		}
 		
+		public function getIsLoaded():Boolean
+		{
+			return _isLoaded;
+		}
+		
 		/**
 		 * Ready the instance for garbage collection.
 		 */		
@@ -198,6 +205,8 @@ package seisaku.lib.display
 		
 		protected function _complete(p_event:Event):void
 		{
+			_isLoaded = true;
+			
 			_log("asset fully loaded \""+_uri+"\"");
 			
 			if ( _showOnLoad )

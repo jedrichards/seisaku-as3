@@ -72,6 +72,7 @@
     <classEntry path="seisaku.lib.media.VimeoVideo"/>
     <classEntry path="seisaku.lib.display.ui.DottedLine"/>
     <classEntry path="seisaku.lib.display.text.MultiParagraphText"/>
+    <classEntry path="seisaku.lib.media.VideoMediaWithStill"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

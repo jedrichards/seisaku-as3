@@ -268,6 +268,15 @@ package seisaku.lib.util {
 			return bitmap;
 		}
 		
+		public static function cropBitmapData(p_bitmapData:BitmapData,p_x:Number,p_y:Number,p_width:Number,p_height:Number):BitmapData
+		{
+			var crop:BitmapData = new BitmapData(p_width,p_height);
+			
+			crop.copyPixels(p_bitmapData,new Rectangle(p_x,p_y,p_width,p_height),new Point(0,0));
+			
+			return crop;
+		}
+		
 		/**
 		 * Sort a DisplayObjectContainer's children's indices based on a particular child property.
 		 * For example, sort child depth based on y position.
