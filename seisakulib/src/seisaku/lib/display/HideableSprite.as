@@ -80,6 +80,8 @@ package seisaku.lib.display
 		 */
 		public function HideableSprite(p_startHidden:Boolean=false)
 		{
+			// This is a change in trunk!
+		
 			_showHideDuration = 0.5;
 			_showAlpha = 1;
 			_hideAlpha = 0;
