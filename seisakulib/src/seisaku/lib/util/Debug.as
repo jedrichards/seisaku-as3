@@ -53,6 +53,7 @@ package seisaku.lib.util
 		private static var _conn:LocalConnection;
 		private static var _connected:Boolean;
 		private static var _init:Boolean;
+		private static var _levelNames:Array;
 		
 		/**
 		 * Initialise the Debug class.
@@ -66,7 +67,9 @@ package seisaku.lib.util
 			{
 				return;
 			}
-
+			
+			_levelNames = ["[INFO]","[EVENT]","[WARN]","[CRIT]","[SYS]"];
+			
 			logToConsole = p_logToConsole;
 			logToIDE = p_logToIDE;
 			
@@ -78,7 +81,7 @@ package seisaku.lib.util
 			
 			var dateArray:Array = new Date().toString().split(" ");
 			
-			log("[seisaku lib AS3 "+Version.getVersionString()+" on FP "+Capabilities.version+" at "+dateArray[3]+"]",L4_SYSTEM);
+			log("SeisakuLibAS3 "+Version.getVersionString()+" on FP "+Capabilities.version+" at "+dateArray[3],L4_SYSTEM);
 		}
 		
 		/**
@@ -96,20 +99,33 @@ package seisaku.lib.util
 				init();
 			}
 			
+			var s:String = "";
+			
 			if ( p_introspect ) 
 			{
-				p_item = ObjectUtils.introspect(p_item,p_initTabs);
+				s = ObjectUtils.introspect(p_item,p_initTabs);
 			}
+			else
+			{
+				s = p_item.toString();
+			}
+			
+			s = _levelNames[p_level]+" "+s;
 			
 			if ( logToConsole && _connected )
 			{
-				_conn.send(CONNECTION_ID,"onUpdate",p_item,p_level);
+				_conn.send(CONNECTION_ID,"onUpdate",s,p_level);
 			}
 			
 			if ( logToIDE )
 			{
-				trace(p_item);
+				trace(s);
 			}
+		}
+		
+		public static function logClassError(p_class:*,p_methodName:String,p_errorText:String):void
+		{
+			log(ObjectUtils.getClassPath(p_class)+"/"+p_methodName+"(): "+p_errorText,L2_WARNING);
 		}
 		
 		private static function _status0(p_event:StatusEvent):void

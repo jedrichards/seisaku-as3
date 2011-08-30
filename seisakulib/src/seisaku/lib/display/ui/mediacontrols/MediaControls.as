@@ -143,7 +143,7 @@ package seisaku.lib.display.ui.mediacontrols
 			_seekButton.addEventListener(ButtonEvent.CLICK,_seekButtonClick,false,0,true);
 			_seekButton.x = _barsGlowShape.x;
 			_seekButton.y = _barsGlowShape.y;
-			_seekButton.createHitArea(0,0,barWidth,_buttonHeight);
+			_seekButton.createHitSprite(0,0,barWidth,_buttonHeight);
 			_controlsHolder.addChildToHolder(_seekButton);
 		}
 		

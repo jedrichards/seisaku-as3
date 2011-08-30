@@ -84,7 +84,7 @@ package seisaku.lib.display.ui
 			_textField.addEventListener(DynamicTextEvent.TEXT_CHANGE,_textChange,false,0,true);
 			_holder.addChild(_textField);
 
-			createHitArea();
+			createHitSprite();
 			
 			_resize();
 		}

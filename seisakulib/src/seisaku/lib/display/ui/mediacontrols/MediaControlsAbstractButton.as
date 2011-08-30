@@ -76,7 +76,7 @@ package seisaku.lib.display.ui.mediacontrols
 			_holder.addChild(_iconB);
 			DisplayObjectUtils.centerInParent(_iconB,false);
 			
-			createHitArea(0,0,20,20);
+			createHitSprite(0,0,20,20);
 		}
 		
 		protected function _getBackground():Shape

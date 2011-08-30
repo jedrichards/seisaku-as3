@@ -34,6 +34,8 @@ package seisaku.lib.display.ui
 	
 	import seisaku.lib.display.HideableSprite;
 	import seisaku.lib.events.ButtonEvent;
+	import seisaku.lib.util.Debug;
+	import seisaku.lib.util.ObjectUtils;
 	
 	/**
 	 * Sub-class of HideableSprite that acts as a button via a composited hit area Sprite.
@@ -68,7 +70,7 @@ package seisaku.lib.display.ui
 		}
 		
 		/**
-		 * Create a sprite within the scope of the HideableSpriteButton to use as a hit area.
+		 * Create a rectangular sprite within the scope of the HideableSpriteButton to use as a hit area.
 		 * If no size metrics are supplied it will size itself to the current size of the parent.
 		 * 
 		 * @param p_x x position for the hit area.
@@ -76,13 +78,8 @@ package seisaku.lib.display.ui
 		 * @param p_width hit area width.
 		 * @param p_height hit area height.
 		 */
-		public function createHitArea(p_x:Number=0,p_y:Number=0,p_width:Number=0,p_height:Number=0,p_colour:uint=0x000000,p_alpha:Number=0):void
-		{	
-			if ( _hitSprite )
-			{
-				throw(new Error("This HideableSpriteButton already has a hit area"));
-			}
-			
+		public function createHitSprite(p_x:Number=0,p_y:Number=0,p_width:Number=0,p_height:Number=0,p_colour:uint=0,p_alpha:Number=0):void
+		{				
 			if ( p_width == 0 )
 			{
 				p_width = width;
@@ -101,18 +98,19 @@ package seisaku.lib.display.ui
 			hitSprite.graphics.drawRect(0,0,p_width,p_height);
 			hitSprite.graphics.endFill();
 			
-			_holder.addChild(hitSprite);
-			
 			_setHitSprite(hitSprite);
 		} 
 		
-		public function createHitCircle(p_x:Number,p_y:Number,p_radius:Number,p_colour:uint=0,p_alpha:Number=0):void
+		/**
+		 * Create a circular sprite within the scope of the HideableSpriteButton to use as a hit area.
+		 * 
+		 * @param p_x x position for the hit area.
+		 * @param p_y y position for the hit area.
+		 * @param p_width hit area width.
+		 * @param p_height hit area height.
+		 */
+		public function createCircleHitSprite(p_x:Number,p_y:Number,p_radius:Number,p_colour:uint=0,p_alpha:Number=0):void
 		{
-			if ( _hitSprite )
-			{
-				throw(new Error("This HideableSpriteButton already has a hit area"));
-			}
-			
 			var hitSprite:Sprite = new Sprite();
 			hitSprite.x = p_x;
 			hitSprite.y = p_y;
@@ -121,18 +119,22 @@ package seisaku.lib.display.ui
 			hitSprite.graphics.drawCircle(0,0,p_radius);
 			hitSprite.graphics.endFill();
 			
-			_holder.addChild(hitSprite);
-			
 			_setHitSprite(hitSprite);
 		}
 		
 		protected function _setHitSprite(p_hitSprite:Sprite):void
 		{
-			_hitSprite = p_hitSprite;
+			if ( _hitSprite )
+			{	
+				Debug.logClassError(this,"_setHitSprite","Cannot set new hit sprite, one already exists");
+				return;
+			}
 			
+			_hitSprite = p_hitSprite;
 			_hitSprite.buttonMode = true;
 			_hitSprite.tabEnabled = false;
-
+			_holder.addChild(_hitSprite);
+			
 			_hitSprite.addEventListener(MouseEvent.CLICK,_click,false,0,true);
 			_hitSprite.addEventListener(MouseEvent.DOUBLE_CLICK,_doubleClick,false,0,true);
 			_hitSprite.addEventListener(MouseEvent.MOUSE_DOWN,_mouseDown,false,0,true);
@@ -142,14 +144,42 @@ package seisaku.lib.display.ui
 			_hitSprite.addEventListener(MouseEvent.MOUSE_MOVE,_mouseMove,false,0,true);
 		}
 		
+		protected function _removeHitSprite():void
+		{
+			if ( !_hitSprite ) 
+			{
+				Debug.logClassError(this,"_setHitSprite","Cannot remove hit sprite, it does not exist");
+				return;
+			}
+			
+			_hitSprite.removeEventListener(MouseEvent.CLICK,_click);
+			_hitSprite.removeEventListener(MouseEvent.DOUBLE_CLICK,_doubleClick);
+			_hitSprite.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDown);
+			_hitSprite.removeEventListener(MouseEvent.MOUSE_UP,_mouseUp);
+			_hitSprite.removeEventListener(MouseEvent.ROLL_OUT,_rollOut);
+			_hitSprite.removeEventListener(MouseEvent.ROLL_OVER,_rollOver);
+			_hitSprite.removeEventListener(MouseEvent.MOUSE_MOVE,_mouseMove);
+			
+			removeChild(_hitSprite);
+			
+			_hitSprite = null;
+		}
+		
 		/**
 		 * Resize the hit area to a new width and height.
+		 * If no size metrics are supplied it will size itself to the current size of the parent.
 		 * 
 		 * @param p_nWidth Hit area width.
 		 * @param p_nHeight Hit area height.
 		 */
 		public function resizeHitArea(p_width:Number=0,p_height:Number=0):void
 		{
+			if ( !_hitSprite )
+			{
+				Debug.logClassError(this,"resizeHitArea","Cannot resize hit sprite, it does not exist");
+				return;
+			}
+			
 			_hitSprite.width = p_width == 0 ? _hitSprite.width : p_width;
 			_hitSprite.height = p_height == 0 ? _hitSprite.height : p_height;
 		}
@@ -160,17 +190,18 @@ package seisaku.lib.display.ui
 		 * @param p_nX Hit area x position.
 		 * @param p_nY Hit area y position.
 		 */
-		public function moveHitArea(p_x:Number,p_y:Number):void
+		public function moveHitSprite(p_x:Number,p_y:Number):void
 		{
+			if ( !_hitSprite )
+			{
+				Debug.logClassError(this,"moveHitSprite","Cannot move hit sprite, it does not exist");
+				return;
+			}
+			
 			_hitSprite.x = p_x;
 			_hitSprite.y = p_y;
 		}
-		
-		public function setHitAreaAlpha(p_value:Number):void
-		{
-			_hitSprite.alpha = 0;
-		}
-		
+				
 		/**
 		 * Set whether to use a hand cursor when hovering over the hit area.
 		 * 
@@ -224,35 +255,24 @@ package seisaku.lib.display.ui
 		 */
 		override public function dispose():void
 		{
-			if ( _hitSprite )
-			{
-				_hitSprite.removeEventListener(MouseEvent.CLICK,_click);
-				_hitSprite.removeEventListener(MouseEvent.DOUBLE_CLICK,_doubleClick);
-				_hitSprite.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDown);
-				_hitSprite.removeEventListener(MouseEvent.MOUSE_UP,_mouseUp);
-				_hitSprite.removeEventListener(MouseEvent.ROLL_OUT,_rollOut);
-				_hitSprite.removeEventListener(MouseEvent.ROLL_OVER,_rollOver);
-				_hitSprite.removeEventListener(MouseEvent.MOUSE_MOVE,_mouseMove);
-			
-				_holder.removeChild(_hitSprite);
-				_hitSprite = null;
-			}
+			if ( _hitSprite ) _removeHitSprite();
 			
 			super.dispose();
 		}
 		
-		override public function show(p_fade:Boolean=true,p_delay:Number=0):void
+		override protected function _showStart():void
 		{
-			setEnabled(_enabled);
+			super._showStart();
 			
-			super.show(p_fade,p_delay);
+			setEnabled(_enabled);
 		}
 		
-		override public function hide(p_fade:Boolean=true,p_delay:Number=0):void
-		{						
-			mouseChildren = false;
+		override protected function _hideStart():void
+		{
+			super._hideStart();
 			
-			super.hide(p_fade,p_delay);
+			mouseChildren = false;
+			mouseEnabled = false;
 		}
 		
 		protected function _rollOver(p_event:MouseEvent):void

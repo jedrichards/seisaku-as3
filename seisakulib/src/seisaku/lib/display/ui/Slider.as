@@ -106,7 +106,7 @@ package seisaku.lib.display.ui
 			super._createChildren();
 			
 			_track = new Button();
-			_track.createHitArea(0,0,_trackWidth,_trackHeight,_trackColour,_trackAlpha);
+			_track.createHitSprite(0,0,_trackWidth,_trackHeight,_trackColour,_trackAlpha);
 			_track.setUseHandCursor(false);
 			_track.addEventListener(ButtonEvent.CLICK,_trackClick,false,0,true);
 			_holder.addChild(_track);
@@ -118,7 +118,7 @@ package seisaku.lib.display.ui
 			_holder.addChild(_handle);
 			
 			_dragHandle = new Button();
-			_dragHandle.createHitArea(0,0,_handleWidth,_trackHeight,0xff0000,0);
+			_dragHandle.createHitSprite(0,0,_handleWidth,_trackHeight,0xff0000,0);
 			_dragHandle.addEventListener(ButtonEvent.ROLL_OVER,_dragHandleMouseRollOver);
 			_dragHandle.addEventListener(ButtonEvent.ROLL_OUT,_dragHandleMouseRollOut);
 			_dragHandle.addEventListener(ButtonEvent.MOUSE_DOWN,_dragHandleMouseDown);

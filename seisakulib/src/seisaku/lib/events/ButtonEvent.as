@@ -35,15 +35,57 @@ package seisaku.lib.events
 	 */
 	public class ButtonEvent extends Event
 	{
+		/**
+		 * AS2-style "drag over" event. Dispatched when the mouse is dragged over a button with the
+		 * mouse button down.
+		 */
 		public static const AS2_DRAG_OVER:String = "buttonAS2DragOver";
+		
+		/**
+		 * AS2-style "drag out" event. Dispatched when the mouse is dragged off a button with the
+		 * mouse button down.
+		 */
 		public static const AS2_DRAG_OUT:String = "buttonAS2DragOut";
+		
+		/**
+		 * AS2-style "release outside" event. Dispatched when the mouse button is released outside
+		 * a button, having previously been depressed while inside the button.
+		 */
 		public static const AS2_RELEASE_OUTSIDE:String = "buttonAS2ReleaseOutside";
+		
+		/**
+		 * This event is dispatched when the button is clicked.
+		 */
 		public static const CLICK:String = "buttonClick";
+		
+		/**
+		 * This event is dispatched when the button is double-clicked.
+		 */
 		public static const DOUBLE_CLICK:String = "buttonDoubleClick";
+		
+		/**
+		 * This event is dispatched when the button is pressed.
+		 */
 		public static const MOUSE_DOWN:String = "buttonMouseDown";
+		
+		/**
+		 * This event is dispatched when the button is released.
+		 */
 		public static const MOUSE_UP:String = "buttonMouseUp";
+		
+		/**
+		 * This event is dispatched when the mouse rolls off the button.
+		 */
 		public static const ROLL_OUT:String = "buttonRollOut";
+		
+		/**
+		 * This event is dispatched when the mouse rolls over the button.
+		 */
 		public static const ROLL_OVER:String = "buttonRollOver";
+		
+		/**
+		 * This event is dispatched constantly while the mouse is moving across the button.
+		 */
 		public static const MOUSE_MOVE:String = "buttonMouseMove";
 		
 		public var id:Number;
@@ -64,7 +106,7 @@ package seisaku.lib.events
 		
 		override public function toString():String
 		{
-			return formatToString("button","type","bubbles","cancelable","eventPhase","id");
+			return formatToString("button","type","bubbles","cancelable","eventPhase","id","payLoad");
 		}
 	}
 }
