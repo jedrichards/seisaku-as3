@@ -1,8 +1,8 @@
 ﻿/*
  * Seisaku-Lib AS3
  *
- * Hosting: code.google.com/p/seisaku-lib
- * Portfolio: www.seisaku.co.uk
+ * Project home: https://github.com/jedrichards/seisakulib
+ * Website: http://www.seisaku.co.uk
  * Contact: jed@seisaku.co.uk
  *	
  * Copyright (c) 2009 Seisaku Limited/Jed Richards
