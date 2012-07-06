@@ -431,6 +431,16 @@ package seisaku.lib.util
 		}
 		
 		/**
+		 * Remove whitespace characters (tab, newline, carriage return) from a string.
+		 */
+		public static function trim(p_target:String):String
+		{
+			var rex:RegExp = /(\t|\n|\r)/gi;
+			p_target = p_target.replace(rex,'');
+			return p_target;
+		}
+		
+		/**
 		 * Pad the start of the string with extra characters.
 		 * 
 		 * @param p_target Host string.

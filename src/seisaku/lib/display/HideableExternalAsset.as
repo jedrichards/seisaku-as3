@@ -55,6 +55,7 @@ package seisaku.lib.display
 		protected var _loaderContext:LoaderContext;
 		protected var _smooth:Boolean;
 		protected var _isLoaded:Boolean;
+		protected var _loadAttempted:Boolean;
 		
 		public function HideableExternalAsset(p_uri:String="",p_isVerbose:Boolean=false,p_showOnLoad:Boolean=false,p_smooth:Boolean=false,p_startHidden:Boolean=false)
 		{
@@ -65,6 +66,7 @@ package seisaku.lib.display
 			
 			_checkPolicyFile = false;
 			_isLoaded = false;
+			_loadAttempted = false;
 			
 			super(p_startHidden);
 		}
@@ -83,6 +85,11 @@ package seisaku.lib.display
 			addChildToHolder(_loader);
 		}
 		
+		public function getLoadAttempted():Boolean
+		{
+			return _loadAttempted;
+		}
+		
 		/**
 		 * Start to load the external asset.
 		 * 
@@ -90,6 +97,8 @@ package seisaku.lib.display
 		 */
 		public function load(p_uri:String=""):void
 		{
+			_loadAttempted = true;
+			
 			if ( p_uri != "" )
 			{
 				_uri = p_uri;
@@ -235,7 +244,11 @@ package seisaku.lib.display
 		{
 			_log("error during load of \""+_uri+"\", "+p_event.text,Debug.L2_WARNING);
 			
-			dispatchEvent(new HideableExternalAssetEvent(HideableExternalAssetEvent.LOAD_ERROR));
+			var event:HideableExternalAssetEvent = new HideableExternalAssetEvent(HideableExternalAssetEvent.LOAD_ERROR);
+			
+			event.error = p_event.text;
+			
+			dispatchEvent(event);
 		}
 		
 		protected function _progress(p_event:ProgressEvent):void

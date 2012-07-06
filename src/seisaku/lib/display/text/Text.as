@@ -126,6 +126,16 @@ package seisaku.lib.display.text
 			return _textField;
 		}
 		
+		public function getTextHeight():uint
+		{
+			return Math.round(_textField.textHeight);
+		}
+		
+		public function getTextWidth():uint
+		{
+			return Math.round(_textField.textWidth);
+		}
+		
 		/**
 		 * Ready the instance for garbage collection.
 		 */

@@ -25,8 +25,6 @@ package seisaku.lib.media
 		{
 			super._auditPosition();
 			
-			//var newSubtitle:Number = -1;
-			
 			for ( var i:Number=0; i<_subtitles.length; i++ )
 			{
 				var inRange:Boolean = MathUtils.inRange(_positionSecs,_getSubtitleStartByIndex(i),_getSubtitleEndByIndex(i));

@@ -57,6 +57,7 @@ package seisaku.lib.events
 		public static const CONTENT_INIT:String = "hideableExternalAssetContentInit";
 		
 		public var progress:Number;
+		public var error:String;
 		
 		public function HideableExternalAssetEvent(p_type:String,p_bubbles:Boolean=false,p_cancelable:Boolean=false)
 		{
@@ -68,6 +69,7 @@ package seisaku.lib.events
 			var event:HideableExternalAssetEvent = new HideableExternalAssetEvent(type,bubbles,cancelable);
 			
 			event.progress = progress;
+			event.error = error;
 			
 			return event;
 		}
