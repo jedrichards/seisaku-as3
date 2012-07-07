@@ -1,6 +1,6 @@
 # seisakulib
 
-An AS3 library developed by [Seisaku Ltd](http://www.seisaku.co.uk). A set of battle hardened constantly improved generic classes, utilities and view components. At its core is a base class for view components called `HideableSprite` that provides a robust API for show/hide operations and plays well with frameworks.
+An AS3 library developed by [Seisaku](http://www.seisaku.co.uk). A set of battle hardened constantly improved generic classes, utilities and view components. At its core is a base class for view components called `HideableSprite` that provides a robust API for show/hide operations and plays well with frameworks.
 
 Documentation can be found [here](http://www.seisaku.co.uk/docs).
 
