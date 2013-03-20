@@ -115,8 +115,8 @@ package seisaku.lib.util
 		 * @param p_targetMin Lower limit of second range.
 		 * @param p_targetMax Upper limit of second range.
 		 */
-	    public static function map(p_value:Number,p_valueMin:Number,p_valueMax:Number,p_targetMin:Number,p_targetMax:Number):Number
-	    {
+	    	public static function map(p_value:Number,p_valueMin:Number,p_valueMax:Number,p_targetMin:Number,p_targetMax:Number):Number
+	    	{
 			return interpolate(normalise(p_value,p_valueMin,p_valueMax),p_targetMin,p_targetMax);
 		}
 		
